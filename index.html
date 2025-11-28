@@ -5,41 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Class - Karibu</title>
     <style>
-        body {font-family:'Roboto',sans-serif;margin:0;background:#f0f8ff;color:#333}
-        .header {position:relative;height:250px;background:url('https://via.placeholder.com/1920x600/000000/FFFFFF?text=Teacher+on+Blackboard') center/cover}
-        .header::before {content:'';position:absolute;inset:0;background:rgba(0,0,0,0.55)}
-        .header h1 {position:relative;color:#fff;font-size:42px;font-weight:900;text-align:center;padding-top:90px;text-shadow:0 4px 10px rgba(0,0,0,0.6)}
-        .container {max-width:600px;margin:40px auto;text-align:center;padding:30px;background:#fff;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.15)}
-        h2 {font-size:28px;color:#007BFF;margin-bottom:15px}
-        p {font-size:18px;color:#555;margin-bottom:30px}
-        .btn {display:inline-block;padding:18px 40px;margin:12px;background:#007BFF;color:#fff;text-decoration:none;border-radius:12px;font-size:20px;font-weight:bold;transition:0.3s}
-        .btn:hover {background:#0056b3;transform:scale(1.08)}
-        .footer {text-align:center;padding:30px;color:#777;font-size:15px}
+        body{font-family:'Roboto',sans-serif;margin:0;background:#f0f8ff}
+        .header{position:relative;height:250px;background:url('https://via.placeholder.com/1920x600/000000/FFFFFF?text=Teacher+on+Blackboard') center/cover}
+        .header::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.55)}
+        .header h1{position:relative;color:#fff;font-size:42px;font-weight:900;text-align:center;padding-top:90px;text-shadow:0 4px 10px #000}
+        .container{max-width:600px;margin:40px auto;text-align:center;padding:30px;background:#fff;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.15)}
+        h2{font-size:28px;color:#007BFF;margin-bottom:15px}
+        p{font-size:18px;color:#555;margin-bottom:30px}
+        .btn{display:inline-block;padding:18px 40px;margin:12px;background:#007BFF;color:#fff;text-decoration:none;border-radius:12px;font-size:20px;font-weight:bold;transition:0.3s}
+        .btn:hover{background:#0056b3;transform:scale(1.08)}
+        .footer{text-align:center;padding:30px;color:#777;font-size:15px}
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Digital Class</h1>
-    </div>
-
+    <div class="header"><h1>Digital Class</h1></div>
     <div class="container">
         <h2>Karibu kwenye Digital Class!</h2>
-        <p>Ingia au unda akaunti ili uanze masomo, mahudhurio na mitihani yako</p>
-        
-        <a href="login.html" class="btn">Login</a>
-        <a href="create.html" class="btn">Create Account</a>
-        <a href="mobile.html" class="btn">Login with Mobile</a>
+        <p>Ingia au unda akaunti ili uanze masomo yako</p>
+        <a href="login.html" class="btn">Ingia</a>
+        <a href="create.html" class="btn">Unda Akaunti</a>
+        <a href="mobile.html" class="btn">Ingia na Simu</a>
     </div>
+    <div class="footer">© 2025 Digital Class • Richie-Boy</div>
 
-    <div class="footer">
-        © 2025 Digital Class • Made with ❤️ by Richie-Boy
-    </div>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import {getAuth, onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
-    <!-- FIREBASE MPYA INAYOFANYA KAZI 100% -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-
-    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyD2LRLCeoVCuj1Ip4o-h5NgeG5qpwTCHEY",
             authDomain: "digital-class-8dc9f.firebaseapp.com",
@@ -49,14 +41,11 @@
             appId: "1:679005539672:web:3038f0a2400de98115e92d"
         };
 
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
-        // Kama user ameingia tayari → peleka dashboard moja kwa moja
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                window.location.href = 'dashboard.html';
-            }
+        onAuthStateChanged(auth, (user) => {
+            if (user) window.location.href = 'dashboard.html';
         });
     </script>
 </body>
