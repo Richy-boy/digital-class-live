@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Class - Create Account</title>
-    <style>/* (same style kama login.html – nimeifupisha tu) */
+    <style>
         body{font-family:'Roboto',sans-serif;margin:0;background:#fff}
         .header{position:relative;height:200px;background:url('https://via.placeholder.com/1920x600/000000/FFFFFF?text=Teacher+on+Blackboard') center/cover}
         .header::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.5)}
@@ -36,35 +36,57 @@
         </div>
     </div>
 
+    <!-- FIREBASE MPYA INAYOFANYA KAZI 100% -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
     <script>
-        const firebaseConfig = { /* same config kama hapo juu */ 
-            apiKey: "AIzaSyD8vT9bL7k9jPqR5mN3vX2cF1gH6jL9oPq",
-            authDomain: "digital-class-richy-2025.firebaseapp.com",
-            projectId: "digital-class-richy-2025",
-            storageBucket: "digital-class-richy-2025.appspot.com",
-            messagingSenderId: "987654321098",
-            appId: "1:987654321098:web:a1b2c3d4e5f6g7h8i9j0"
+        // CONFIG YAKO MPYA YA KWELI (DIGITAL-CLASS-8DC9F)
+        const firebaseConfig = {
+            apiKey: "AIzaSyD2LRLCeoVCuj1Ip4o-h5NgeG5qpwTCHEY",
+            authDomain: "digital-class-8dc9f.firebaseapp.com",
+            projectId: "digital-class-8dc9f",
+            storageBucket: "digital-class-8dc9f.firebasestorage.app",
+            messagingSenderId: "679005539672",
+            appId: "1:679005539672:web:3038f0a2400de98115e92d"
         };
+
+        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
+        // Form submission
         document.getElementById('create-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const name = document.getElementById('full-name').value;
-            const email = document.getElementById('email').value;
+            const name = document.getElementById('full-name').value.trim();
+            const email = document.getElementById('email').value.trim();
             const pass = document.getElementById('password').value;
             const confirm = document.getElementById('confirm-password').value;
             const role = document.getElementById('role').value;
 
-            if (pass !== confirm) return alert("Passwords hazifanani!");
+            if (!name || !email || !pass || !confirm || !role) {
+                return alert("Jaza kila kitu tafadhali!");
+            }
+            if (pass !== confirm) {
+                return alert("Passwords hazifanani!");
+            }
+            if (pass.length < 6) {
+                return alert("Password iwe angalau herufi 6");
+            }
 
             auth.createUserWithEmailAndPassword(email, pass)
-                .then(cred => cred.user.updateProfile({displayName: name}))
-                .then(() => alert("Akaunti imeundwa! Ingia sasa"))
-                .then(() => window.location.href = 'login.html')
-                .catch(err => alert(err.message));
+                .then((cred) => {
+                    return cred.user.updateProfile({
+                        displayName: name
+                    });
+                })
+                .then(() => {
+                    alert("Akaunti imeundwa! Karibu Digital Class!");
+                    window.location.href = 'login.html';
+                })
+                .catch((error) => {
+                    alert("Hitilafu: " + error.message);
+                });
         });
     </script>
 </body>
