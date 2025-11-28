@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html><head><title>Dashboard</title></head>
+<body style="font-family:Roboto;text-align:center;padding:50px">
+    <h1>Karibu, <span id="user">Loading...</span>!</h1>
+    <p>Login imefanikiwa 100%</p>
+    <button onclick="firebase.auth().signOut().then(()=>location.href='login.html')">
+        Logout
+    </button>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = { /* same config */ 
+            apiKey: "AIzaSyD8vT9bL7k9jPqR5mN3vX2cF1gH6jL9oPq",
+            authDomain: "digital-class-richy-2025.firebaseapp.com",
+            projectId: "digital-class-richy-2025",
+            storageBucket: "digital-class-richy-2025.appspot.com",
+            messagingSenderId: "987654321098",
+            appId: "1:987654321098:web:a1b2c3d4e5f6g7h8i9j0"
+        };
+        firebase.initializeApp(firebaseConfig);
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) document.getElementById('user').textContent = user.displayName || user.email;
+            else location.href = 'login.html';
+        });
+    </script>
+</body></html>
