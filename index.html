@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Class - Home</title>
+    <title>Digital Class - Karibu</title>
     <style>
-        body {font-family: 'Roboto', sans-serif; margin:0; background:#fff; color:#000}
-        .header {position:relative; height:200px; background:url('https://via.placeholder.com/1920x600/000000/FFFFFF?text=Teacher+on+Blackboard') center/cover}
-        .header::before {content:''; position:absolute; inset:0; background:rgba(0,0,0,0.5)}
-        .header h1 {position:relative; color:#fff; font-size:32px; font-weight:bold; text-align:center; padding-top:70px}
-        .container {max-width:500px; margin:40px auto; text-align:center; padding:20px}
-        .btn {display:inline-block; padding:15px 30px; background:#007BFF; color:#fff; text-decoration:none; border-radius:8px; font-size:18px; margin:10px}
-        .btn:hover {background:#0056b3}
-        .footer {text-align:center; padding:20px; color:#666; font-size:14px}
+        body {font-family:'Roboto',sans-serif;margin:0;background:#f0f8ff;color:#333}
+        .header {position:relative;height:250px;background:url('https://via.placeholder.com/1920x600/000000/FFFFFF?text=Teacher+on+Blackboard') center/cover}
+        .header::before {content:'';position:absolute;inset:0;background:rgba(0,0,0,0.55)}
+        .header h1 {position:relative;color:#fff;font-size:42px;font-weight:900;text-align:center;padding-top:90px;text-shadow:0 4px 10px rgba(0,0,0,0.6)}
+        .container {max-width:600px;margin:40px auto;text-align:center;padding:30px;background:#fff;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.15)}
+        h2 {font-size:28px;color:#007BFF;margin-bottom:15px}
+        p {font-size:18px;color:#555;margin-bottom:30px}
+        .btn {display:inline-block;padding:18px 40px;margin:12px;background:#007BFF;color:#fff;text-decoration:none;border-radius:12px;font-size:20px;font-weight:bold;transition:0.3s}
+        .btn:hover {background:#0056b3;transform:scale(1.08)}
+        .footer {text-align:center;padding:30px;color:#777;font-size:15px}
     </style>
 </head>
 <body>
@@ -22,28 +24,31 @@
 
     <div class="container">
         <h2>Karibu kwenye Digital Class!</h2>
-        <p>Ingia au unda akaunti yako ili uanze.</p>
+        <p>Ingia au unda akaunti ili uanze masomo, mahudhurio na mitihani yako</p>
+        
         <a href="login.html" class="btn">Login</a>
         <a href="create.html" class="btn">Create Account</a>
         <a href="mobile.html" class="btn">Login with Mobile</a>
     </div>
 
     <div class="footer">
-        © 2025 Digital Class. All rights reserved.
+        © 2025 Digital Class • Made with ❤️ by Richie-Boy
     </div>
 
-    <!-- Firebase SDK + Auto Redirect kama user ameingia tayari -->
+    <!-- FIREBASE MPYA INAYOFANYA KAZI 100% -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
     <script>
         const firebaseConfig = {
-            apiKey: "AIzaSyD8vT9bL7k9jPqR5mN3vX2cF1gH6jL9oPq",
-            authDomain: "digital-class-richy-2025.firebaseapp.com",
-            projectId: "digital-class-richy-2025",
-            storageBucket: "digital-class-richy-2025.appspot.com",
-            messagingSenderId: "987654321098",
-            appId: "1:987654321098:web:a1b2c3d4e5f6g7h8i9j0"
+            apiKey: "AIzaSyD2LRLCeoVCuj1Ip4o-h5NgeG5qpwTCHEY",
+            authDomain: "digital-class-8dc9f.firebaseapp.com",
+            projectId: "digital-class-8dc9f",
+            storageBucket: "digital-class-8dc9f.firebasestorage.app",
+            messagingSenderId: "679005539672",
+            appId: "1:679005539672:web:3038f0a2400de98115e92d"
         };
+
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
