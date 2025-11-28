@@ -3,29 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Class - Login na Simu</title>
+    <title>Digital Class - Ingia na Simu</title>
     <style>
         body{font-family:'Roboto',sans-serif;margin:0;background:#f0f8ff}
-        .header{position:relative;height:220px;background:url('https://via.placeholder.com/1920x600/000000/FFFFFF?text=Teacher+on+Blackboard') center/cover}
-        .header::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.55)}
-        .header h1{position:relative;color:#fff;font-size:32px;font-weight:900;text-align:center;padding-top:90px;text-shadow:0 4px 10px #000}
-        .form-container{max-width:420px;margin:30px auto;padding:35px;background:#fff;border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,0.2)}
-        h2{font-size:26px;text-align:center;color:#007BFF;margin-bottom:10px}
-        p{text-align:center;color:#555;font-size:16px;margin-bottom:25px}
+        .header{position:relative;height:200px;background:url('https://via.placeholder.com/1920x600/000000/FFFFFF?text=Teacher+on+Blackboard') center/cover}
+        .header::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.6)}
+        .header h1{position:relative;color:#fff;font-size:38px;font-weight:900;text-align:center;padding-top:80px}
+        .container{max-width:420px;margin:40px auto;padding:40px;background:#fff;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.2);text-align:center}
         input{width:100%;padding:16px;margin:12px 0;border:1px solid #ccc;border-radius:10px;font-size:17px}
-        button{width:100%;padding:18px;background:#007BFF;color:#fff;border:none;border-radius:10px;font-size:19px;font-weight:bold;cursor:pointer;margin-top:10px}
-        button:hover{background:#0056b3;transform:scale(1.03);transition:0.3s}
+        button{width:100%;padding:18px;background:#28a745;color:#fff;border:none;border-radius:10px;font-size:19px;font-weight:bold;cursor:pointer}
+        button:hover{background:#218838}
         .hidden{display:none}
-        .options{text-align:center;margin-top:30px}
-        .options a{color:#007BFF;font-size:18px;text-decoration:none}
+        .options{margin-top:30px}
+        .options a{color:#007BFF;text-decoration:none;font-size:17px}
     </style>
 </head>
 <body>
     <div class="header"><h1>Digital Class</h1></div>
-
-    <div class="form-container">
-        <h2>Login na Namba ya Simu</h2>
-        <p>Tuma namba yako, tutakutumia OTP ya kuingia</p>
+    <div class="container">
+        <h2>Ingia na Namba ya Simu</h2>
+        <p>Tuma namba yako, tutakutumia OTP</p>
 
         <div id="phone-section">
             <input type="tel" id="phone" placeholder="+255 712 345 678" required>
@@ -38,15 +35,14 @@
         </div>
 
         <div class="options">
-            <a href="login.html">← Login kwa Email</a>
+            <a href="login.html">← Ingia kwa Email</a>
         </div>
     </div>
 
-    <!-- FIREBASE MPYA INAYOFANYA KAZI 100% -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
-    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyD2LRLCeoVCuj1Ip4o-h5NgeG5qpwTCHEY",
             authDomain: "digital-class-8dc9f.firebaseapp.com",
@@ -56,43 +52,35 @@
             appId: "1:679005539672:web:3038f0a2400de98115e92d"
         };
 
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
         let confirmationResult = null;
 
         document.getElementById('send-otp').onclick = () => {
             const phone = document.getElementById('phone').value.trim();
-            if (!phone) return alert("Tafadhali weka namba ya simu!");
+            if (!phone) return alert("Weka namba ya simu!");
 
-            const verifier = new firebase.auth.RecaptchaVerifier('send-otp', {
-                'size': 'invisible'
-            });
+            const verifier = new RecaptchaVerifier(auth, 'send-otp', {'size': 'invisible'});
 
-            auth.signInWithPhoneNumber(phone, verifier)
+            signInWithPhoneNumber(auth, phone, verifier)
                 .then((result) => {
                     confirmationResult = result;
-                    alert("OTP imetumwa kwenye " + phone + " 📱");
+                    alert("OTP imetumwa!");
                     document.getElementById('phone-section').classList.add('hidden');
                     document.getElementById('otp-section').classList.remove('hidden');
                 })
-                .catch((error) => {
-                    alert("Hitilafu: " + error.message);
-                });
+                .catch((err) => alert(err.message));
         };
 
         document.getElementById('verify-otp').onclick = () => {
             const code = document.getElementById('otp').value;
-            if (code.length !== 6) return alert("OTP iwe tarakimu 6!");
-
             confirmationResult.confirm(code)
                 .then(() => {
-                    alert("Umeingia kwa mafanikio! 🎉");
-                    window.location.href = "dashboard.html";
+                    alert("Umeingia kwa mafanikio!");
+                    window.location.href = 'dashboard.html';
                 })
-                .catch((error) => {
-                    alert("OTP si sahihi: " + error.message);
-                });
+                .catch((err) => alert(err.message));
         };
     </script>
 </body>
