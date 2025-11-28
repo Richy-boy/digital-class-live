@@ -5,63 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Class - Rudisha Password</title>
     <style>
-        body{font-family:'Roboto',sans-serif;background:#f0f8ff;margin:0;padding:20px}
-        .header{background:#007BFF;color:#fff;padding:25px 0;border-radius:0 0 20px 20px;text-align:center}
-        .header h1{font-size:28px;margin:0}
-        .form-container{max-width:420px;margin:40px auto;padding:35px;background:#fff;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,0.15)}
-        h2{font-size:24px;margin-bottom:10px}
-        p{color:#555;text-align:center;margin-bottom:25px}
-        input{width:100%;padding:14px;margin:12px 0;border:1px solid #ddd;border-radius:8px;font-size:16px}
-        button{width:100%;padding:16px;background:#007BFF;color:#fff;border:none;border-radius:8px;font-size:18px;cursor:pointer;margin-top:10px}
-        button:hover{background:#0056b3;transform:scale(1.03);transition:0.3s}
-        .back{text-align:center;margin-top:25px}
+        body{font-family:'Roboto',sans-serif;margin:0;background:#f0f8ff}
+        .header{position:relative;height:200px;background:url('https://via.placeholder.com/1920x600/000000/FFFFFF?text=Teacher+on+Blackboard') center/cover}
+        .header::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.6)}
+        .header h1{position:relative;color:#fff;font-size:38px;font-weight:900;text-align:center;padding-top:80px}
+        .container{max-width:420px;margin:60px auto;padding:40px;background:#fff;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.2);text-align:center}
+        input{width:100%;padding:16px;margin:12px 0;border:1px solid #ccc;border-radius:10px;font-size:17px}
+        button{width:100%;padding:18px;background:#dc3545;color:#fff;border:none;border-radius:10px;font-size:19px;font-weight:bold;cursor:pointer}
+        button:hover{background:#c82333}
+        .back{margin-top:30px}
         .back a{color:#007BFF;font-size:17px;text-decoration:none}
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Digital Class</h1>
-    </div>
-
-    <div class="form-container">
+    <div class="header"><h1>Digital Class</h1></div>
+    <div class="container">
         <h2>Rudisha Password</h2>
-        <p>Tuma email yako, tutakutumia link ya kubadilisha password</p>
-
-        <input type="email" id="email" placeholder="Weka email yako hapa" required>
-        <button id="reset-btn">Tuma Link ya Kubadilisha</button>
-
+        <p>Tuma email yako, tutakutumia link ya kubadilisha</p>
+        <input type="email" id="email" placeholder="Weka email yako" required>
+        <button id="reset-btn">Tuma Link</button>
         <div class="back">
             <a href="login.html">← Rudi Login</a>
         </div>
     </div>
 
-    <!-- FIREBASE MPYA INAYOFANYA KAZI 100% -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
-    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyD2LRLCeoVCuj1Ip4o-h5NgeG5qpwTCHEY",
             authDomain: "digital-class-8dc9f.firebaseapp.com",
             projectId: "digital-class-8dc9f",
             storageBucket: "digital-class-8dc9f.firebasestorage.app",
             messagingSenderId: "679005539672",
-            appId: "1:679005539672:web:web:3038f0a2400de98115e92d"
+            appId: "1:679005539672:web:3038f0a2400de98115e92d"
         };
 
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
         document.getElementById('reset-btn').addEventListener('click', () => {
             const email = document.getElementById('email').value.trim();
-            if (!email) return alert("Tafadhali weka email yako!");
+            if (!email) return alert("Weka email yako!");
 
-            auth.sendPasswordResetEmail(email)
+            sendPasswordResetEmail(auth, email)
                 .then(() => {
-                    alert("Link ya kubadilisha password imetumwa kwenye email yako! Angalia inbox au spam.");
+                    alert("Link imetumwa! Angalia email yako (inbox na spam)");
                 })
-                .catch((error) => {
-                    alert("Hitilafu: " + error.message);
+                .catch((err) => {
+                    alert("Hitilafu: " + err.message);
                 });
         });
     </script>
