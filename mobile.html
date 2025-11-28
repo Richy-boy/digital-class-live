@@ -1,80 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Class - Login with Mobile</title>
+    <title>Digital Class - Login na Simu</title>
     <style>
-        body{font-family:'Roboto',sans-serif;margin:0;background:#fff}
-        .header{position:relative;height:200px;background:url('https://via.placeholder.com/1920x600/000000/FFFFFF?text=Teacher+on+Blackboard') center/cover}
-        .header::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.5)}
-        .header h1{position:relative;color:#fff;font-size:24px;font-weight:bold;text-align:center;padding-top:80px}
-        .form-container{max-width:400px;margin:20px auto;padding:20px;background:#fff;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
-        input{width:100%;padding:12px;margin:10px 0;border:1px solid #ccc;border-radius:4px}
-        button{width:100%;padding:14px;background:#007BFF;color:#fff;border:none;border-radius:4px;font-size:16px;cursor:pointer}
+        body{font-family:'Roboto',sans-serif;margin:0;background:#f0f8ff}
+        .header{position:relative;height:220px;background:url('https://via.placeholder.com/1920x600/000000/FFFFFF?text=Teacher+on+Blackboard') center/cover}
+        .header::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.55)}
+        .header h1{position:relative;color:#fff;font-size:32px;font-weight:900;text-align:center;padding-top:90px;text-shadow:0 4px 10px #000}
+        .form-container{max-width:420px;margin:30px auto;padding:35px;background:#fff;border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,0.2)}
+        h2{font-size:26px;text-align:center;color:#007BFF;margin-bottom:10px}
+        p{text-align:center;color:#555;font-size:16px;margin-bottom:25px}
+        input{width:100%;padding:16px;margin:12px 0;border:1px solid #ccc;border-radius:10px;font-size:17px}
+        button{width:100%;padding:18px;background:#007BFF;color:#fff;border:none;border-radius:10px;font-size:19px;font-weight:bold;cursor:pointer;margin-top:10px}
+        button:hover{background:#0056b3;transform:scale(1.03);transition:0.3s}
         .hidden{display:none}
-        .options{text-align:center;margin-top:20px}
-        .options a{color:#007BFF}
+        .options{text-align:center;margin-top:30px}
+        .options a{color:#007BFF;font-size:18px;text-decoration:none}
     </style>
 </head>
 <body>
     <div class="header"><h1>Digital Class</h1></div>
+
     <div class="form-container">
-        <h2 style="text-align:center">Login with Mobile</h2>
-        <p style="text-align:center;font-size:14px;color:#666">Enter your number to receive OTP</p>
+        <h2>Login na Namba ya Simu</h2>
+        <p>Tuma namba yako, tutakutumia OTP ya kuingia</p>
 
         <div id="phone-section">
             <input type="tel" id="phone" placeholder="+255 712 345 678" required>
-            <button id="send-otp">Send OTP</button>
+            <button id="send-otp">Tuma OTP</button>
         </div>
 
         <div id="otp-section" class="hidden">
-            <input type="text" id="otp" placeholder="Enter 6-digit OTP" maxlength="6" required>
-            <button id="verify-otp">Verify & Login</button>
+            <input type="text" id="otp" placeholder="Weka OTP ya tarakimu 6" maxlength="6" required>
+            <button id="verify-otp">Ingia Sasa</button>
         </div>
 
         <div class="options">
-            <a href="login.html">← Login with Email</a>
+            <a href="login.html">← Login kwa Email</a>
         </div>
     </div>
 
-    <!-- Firebase -->
+    <!-- FIREBASE MPYA INAYOFANYA KAZI 100% -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
     <script>
         const firebaseConfig = {
-            apiKey: "AIzaSyD8vT9bL7k9jPqR5mN3vX2cF1gH6jL9oPq",
-            authDomain: "digital-class-richy-2025.firebaseapp.com",
-            projectId: "digital-class-richy-2025",
-            storageBucket: "digital-class-richy-2025.appspot.com",
-            messagingSenderId: "987654321098",
-            appId: "1:987654321098:web:a1b2c3d4e5f6g7h8i9j0"
+            apiKey: "AIzaSyD2LRLCeoVCuj1Ip4o-h5NgeG5qpwTCHEY",
+            authDomain: "digital-class-8dc9f.firebaseapp.com",
+            projectId: "digital-class-8dc9f",
+            storageBucket: "digital-class-8dc9f.firebasestorage.app",
+            messagingSenderId: "679005539672",
+            appId: "1:679005539672:web:3038f0a2400de98115e92d"
         };
+
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
         let confirmationResult = null;
 
         document.getElementById('send-otp').onclick = () => {
-            const phone = document.getElementById('phone').value;
-            if (!phone) return alert("Weka namba ya simu!");
+            const phone = document.getElementById('phone').value.trim();
+            if (!phone) return alert("Tafadhali weka namba ya simu!");
 
-            const verifier = new firebase.auth.RecaptchaVerifier('send-otp', {'size': 'invisible'});
+            const verifier = new firebase.auth.RecaptchaVerifier('send-otp', {
+                'size': 'invisible'
+            });
+
             auth.signInWithPhoneNumber(phone, verifier)
-                .then(result => {
+                .then((result) => {
                     confirmationResult = result;
-                    alert("OTP imetumwa!");
+                    alert("OTP imetumwa kwenye " + phone + " 📱");
                     document.getElementById('phone-section').classList.add('hidden');
                     document.getElementById('otp-section').classList.remove('hidden');
                 })
-                .catch(err => alert(err.message));
+                .catch((error) => {
+                    alert("Hitilafu: " + error.message);
+                });
         };
 
         document.getElementById('verify-otp').onclick = () => {
             const code = document.getElementById('otp').value;
+            if (code.length !== 6) return alert("OTP iwe tarakimu 6!");
+
             confirmationResult.confirm(code)
-                .then(() => window.location.href = "dashboard.html")
-                .catch(err => alert(err.message));
+                .then(() => {
+                    alert("Umeingia kwa mafanikio! 🎉");
+                    window.location.href = "dashboard.html";
+                })
+                .catch((error) => {
+                    alert("OTP si sahihi: " + error.message);
+                });
         };
     </script>
 </body>
