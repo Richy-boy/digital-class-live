@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,72 +8,89 @@
         body{font-family:'Roboto',sans-serif;margin:0;padding:0;background:#fff;color:#000}
         .header{position:relative;height:200px;background:url('https://via.placeholder.com/1920x600/000000/FFFFFF?text=Teacher+on+Blackboard') center/cover}
         .header::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.5)}
-        .header h1{position:relative;color:#fff;font-size:24px;font-weight:bold;text-align:center;padding-top:80px}
-        .tabs{display:flex;justify-content:center;margin:16px 0}
-        .tab{padding:8px 16px;background:#e0e0e0;border:none;cursor:pointer;font-size:14px}
-        .tab.active{background:#007BFF;color:#fff}
-        .form-container{max-width:400px;margin:0 auto;padding:16px;background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
-        .form-group{margin-bottom:16px}
-        .form-group label{display:block;margin-bottom:4px;font-size:14px}
-        .form-group input{width:100%;padding:8px;border:1px solid #e0e0e0;border-radius:4px;box-sizing:border-box}
-        .login-btn{width:100%;padding:12px;background:#007BFF;color:#fff;border:none;border-radius:4px;font-size:16px;cursor:pointer}
-        .options{margin-top:16px;text-align:center}
-        .options a{color:#007BFF;text-decoration:none;margin:0 8px}
-        .footer{text-align:center;padding:16px;font-size:12px;color:#666}
+        .header h1{position:relative;color:#fff;font-size:28px;font-weight:bold;text-align:center;padding-top:80px}
+        .tabs{display:flex;justify-content:center;margin:20px 0}
+        .tab{padding:12px 24px;background:#e0e0e0;border:none;cursor:pointer;font-size:16px;border-radius:8px 8px 0 0}
+        .tab.active{background:#007BFF;color:#fff;font-weight:bold}
+        .form-container{max-width:420px;margin:0 auto;padding:30px;background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.15)}
+        .form-group{margin-bottom:20px}
+        .form-group label{display:block;margin-bottom:8px;font-size:15px;font-weight:600}
+        .form-group input{width:100%;padding:14px;border:1px solid #ccc;border-radius:8px;font-size:16px}
+        .login-btn{width:100%;padding:16px;background:#007BFF;color:#fff;border:none;border-radius:8px;font-size:18px;font-weight:bold;cursor:pointer;margin-top:10px}
+        .login-btn:hover{background:#0056b3}
+        .options{margin-top:25px;text-align:center;font-size:16px}
+        .options a{color:#007BFF;text-decoration:none}
+        .options a:hover{text-decoration:underline}
+        .footer{text-align:center;padding:20px;color:#777;font-size:14px}
     </style>
 </head>
 <body>
     <div class="header"><h1>Digital Class</h1></div>
+
     <div class="tabs">
         <button class="tab active">Student Login</button>
         <button class="tab">Staff Login</button>
     </div>
+
     <div class="form-container">
         <form id="login-form">
             <div class="form-group">
                 <label>Email Address</label>
-                <input type="email" id="email" placeholder="Enter your email" required>
+                <input type="email" id="email" placeholder="Ingiza email yako" required>
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
+                <input type="password" id="password" placeholder="Ingiza password yako" required>
             </div>
             <button type="submit" class="login-btn">Login</button>
         </form>
+
         <div class="options">
             <a href="mobile.html">Login with Mobile</a> | 
-            <a href="forget.html">Forgot Password?</a><br>
-            <a href="create.html">Create Account</a>
+            <a href="forget.html">Umesahau Password?</a><br><br>
+            <a href="create.html">Unda Akaunti Mpya</a>
         </div>
     </div>
-    <div class="footer">© 2025 Digital Class</div>
 
-    <!-- Firebase SDK -->
+    <div class="footer">© 2025 Digital Class • Richie-Boy</div>
+
+    <!-- FIREBASE MPYA INAYOFANYA KAZI 100% -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
     <script>
         const firebaseConfig = {
-            apiKey: "AIzaSyD8vT9bL7k9jPqR5mN3vX2cF1gH6jL9oPq",
-            authDomain: "digital-class-richy-2025.firebaseapp.com",
-            projectId: "digital-class-richy-2025",
-            storageBucket: "digital-class-richy-2025.appspot.com",
-            messagingSenderId: "987654321098",
-            appId: "1:987654321098:web:a1b2c3d4e5f6g7h8i9j0"
+            apiKey: "AIzaSyD2LRLCeoVCuj1Ip4o-h5NgeG5qpwTCHEY",
+            authDomain: "digital-class-8dc9f.firebaseapp.com",
+            projectId: "digital-class-8dc9f",
+            storageBucket: "digital-class-8dc9f.firebasestorage.app",
+            messagingSenderId: "679005539672",
+            appId: "1:679005539672:web:3038f0a2400de98115e92d"
         };
+
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
         document.getElementById('login-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const email = document.getElementById('email').value;
+            const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
+
+            if (!email || !password) return alert("Jaza email na password!");
+
             auth.signInWithEmailAndPassword(email, password)
-                .then(() => window.location.href = 'dashboard.html')
-                .catch(err => alert(err.message));
+                .then(() => {
+                    alert("Karibu tena! 🎉");
+                    window.location.href = 'dashboard.html';
+                })
+                .catch((error) => {
+                    alert("Hitilafu: " + error.message);
+                });
         });
 
+        // Kama user ameingia tayari → peleka dashboard
         auth.onAuthStateChanged(user => {
-            if (user && window.location.pathname.includes('login.html')) {
+            if (user) {
                 window.location.href = 'dashboard.html';
             }
         });
