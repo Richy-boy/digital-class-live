@@ -5,47 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Class - Ingia</title>
     <style>
-        body {font-family:'Roboto',sans-serif;margin:0;background:#f0f8ff;color:#333}
-        .header {position:relative;height:220px;background:url('https://via.placeholder.com/1920x600/000000/FFFFFF?text=Teacher+on+Blackboard') center/cover}
-        .header::before {content:'';position:absolute;inset:0;background:rgba(0,0,0,0.6)}
-        .header h1 {position:relative;color:#fff;font-size:38px;font-weight:900;text-align:center;padding-top:90px;text-shadow:0 4px 15px #000}
-        .container {max-width:420px;margin:40px auto;padding:40px;background:#fff;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.2);text-align:center}
-        h2 {font-size:28px;color:#007BFF;margin-bottom:20px}
-        input {width:100%;padding:16px;margin:12px 0;border:1px solid #ccc;border-radius:8px;font-size:17px;border-radius:10px}
-        button {width:100%;padding:18px;background:#007BFF;color:#fff;border:none;border-radius:10px;font-size:19px;font-weight:bold;cursor:pointer;margin-top:15px}
-        button:hover {background:#0056b3;transform:scale(1.03);transition:0.3s}
-        .options {margin-top:30px;font-size:17px}
-        .options a {color:#007BFF;text-decoration:none;margin:0 10px}
-        .options a:hover {text-decoration:underline}
-        .footer {text-align:center;padding:30px;color:#777;font-size:15px}
+        body{font-family:'Roboto',sans-serif;margin:0;background:#f0f8ff}
+        .header{position:relative;height:200px;background:url('https://via.placeholder.com/1920x600/000000/FFFFFF?text=Teacher+on+Blackboard') center/cover}
+        .header::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.6)}
+        .header h1{position:relative;color:#fff;font-size:38px;font-weight:900;text-align:center;padding-top:80px}
+        .container{max-width:420px;margin:40px auto;padding:40px;background:#fff;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.2);text-align:center}
+        input{width:100%;padding:16px;margin:12px 0;border:1px solid #ccc;border-radius:10px;font-size:17px}
+        button{width:100%;padding:18px;background:#007BFF;color:#fff;border:none;border-radius:10px;font-size:19px;font-weight:bold;cursor:pointer}
+        button:hover{background:#0056b3}
+        .options{margin-top:30px;font-size:17px}
+        .options a{color:#007BFF;text-decoration:none}
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Digital Class</h1>
-    </div>
-
+    <div class="header"><h1>Digital Class</h1></div>
     <div class="container">
-        <h2>Karibu Tena!</h2>
-
+        <h2>Ingia kwenye Akaunti Yako</h2>
         <form id="login-form">
-            <input type="email" id="email" placeholder="Weka email yako" required>
-            <input type="password" id="password" placeholder="Weka password yako" required>
-            <button type="submit">Ingia Sasa</button>
+            <input type="email" id="email" placeholder="Email yako" required>
+            <input type="password" id="password" placeholder="Password yako" required>
+            <button type="submit">Ingia</button>
         </form>
-
         <div class="options">
-            <a href="mobile.html">Ingia na Namba ya Simu</a><br><br>
+            <a href="mobile.html">Ingia na Simu</a> | 
             <a href="forget.html">Umesahau Password?</a><br><br>
-            <a href="create.html">Unda Akaunti Mpya</a>
+            <a href="create.html">Unda Akaunti</a>
         </div>
     </div>
 
-    <div class="footer">
-        © 2025 Digital Class • Imetengenezwa na Richie-Boy
-    </div>
-
-    <!-- FIREBASE MODULAR SDK (v10.7.1) -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
@@ -62,29 +49,19 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Auto redirect kama user ameingia tayari
         onAuthStateChanged(auth, (user) => {
-            if (user) {
-                window.location.href = 'dashboard.html';
-            }
+            if (user) window.location.href = 'dashboard.html';
         });
 
-        // Login
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
-
-            if (!email || !password) {
-                return alert("Tafadhali jaza email na password!");
-            }
-
             try {
                 await signInWithEmailAndPassword(auth, email, password);
-                alert("Karibu tena! 🎉");
                 window.location.href = 'dashboard.html';
-            } catch (error) {
-                alert("Hitilafu: " + error.message);
+            } catch (err) {
+                alert("Hitilafu: " + err.message);
             }
         });
     </script>
