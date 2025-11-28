@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <style>body{font-family:'Roboto',sans-serif;background:#f9f9f9}.form-container{max-width:400px;margin:50px auto;padding:30px;background:#fff;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,0.1)}input{width:100%;padding:12px;margin:10px 0;border:1px solid #ddd;border-radius:4px}button{width:100%;padding:14px;background:#007BFF;color:#fff;border:none;border-radius:4px;cursor:pointer}</style>
+</head>
+<body>
+    <div class="form-container">
+        <h2 style="text-align:center">Forgot Password?</h2>
+        <p style="text-align:center;color:#666">Enter your email, we'll send reset link</p>
+        <input type="email" id="email" placeholder="Your email" required>
+        <button id="reset-btn">Send Reset Link</button>
+        <p style="text-align:center;margin-top:20px"><a href="login.html">← Back to Login</a></p>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = { /* same config */ 
+            apiKey: "AIzaSyD8vT9bL7k9jPqR5mN3vX2cF1gH6jL9oPq",
+            authDomain: "digital-class-richy-2025.firebaseapp.com",
+            projectId: "digital-class-richy-2025",
+            storageBucket: "digital-class-richy-2025.appspot.com",
+            messagingSenderId: "987654321098",
+            appId: "1:987654321098:web:a1b2c3d4e5f6g7h8i9j0"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        document.getElementById('reset-btn').onclick = () => {
+            const email = document.getElementById('email').value;
+            auth.sendPasswordResetEmail(email)
+                .then(() => alert("Reset link imetumwa kwenye email yako!"))
+                .catch(err => alert(err.message));
+        };
+    </script>
+</body>
+</html>
